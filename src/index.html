@@ -7,17 +7,21 @@
   </head>
   <body>
     <!-- Librerias -->
-    <script src="https://threejs.org/build/three.js"></script>
-    <script src="./src/three.js"></script>
-
+    <script src="https://cdnjs.cloudfare.com/ajax/libs/three.js/110/three.js"></script>
     <script>
       //Crear la escena
       var scene = new THREE.Scene();
       scene.background = new THREE.Color(0x2a3b4c);
+      scene.fog = new THREE.Fog("red", 0.1, 8);
+
+      var loader = new THREE.TextureLoader();
+      loader.load('./Portal.jpg', function(texture){
+          scene.background = texture;
+      })
 
       //Añadir la camara
       var camera = new THREE.PerspectiveCamera(
-        75,
+        100,
         window.innerWidth/window.innerHeight
       );
       
@@ -28,7 +32,7 @@
       
       // Geometria 
       var geometry = new THREE.BoxGeometry();
-      var material = new THREE.MeshBasicMaterial({color : 0x00ff00, wireframe : true});
+      var material = new THREE.MeshBasicMaterial({color : 0x00ff00});
       var cube = new THREE.Mesh(geometry, material);
 
       scene.add(cube);
