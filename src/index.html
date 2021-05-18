@@ -12,6 +12,8 @@
         import * as THREE from './three.module.js';
         import {PointerLockControls} from './PointerLockControls.js'
 
+        const loader = new THREE.TextureLoader();
+
         let camera, scene, renderer, pControl
         let xdir = 0, zdir = 0
         let tiempoI, tiempoF, vel, delta
@@ -20,13 +22,102 @@
         scene.background = new THREE.Color(0xffffff)
         scene.fog = new THREE.Fog(0xffffff, 0, 500)
 
+        const material_pared = new THREE.MeshBasicMaterial({
+            map: loader.load('./textures/pared.jpg')
+        });
+
+        const wall_1 = new THREE.PlaneGeometry( 50, 30, 1000 );
+        var plane = new THREE.Mesh( wall_1, material_pared );
+        plane.position.set(0, 15, -91);
+        scene.add( plane );
+
+        const wall_2 = new THREE.PlaneGeometry( 50, 30, 1000 );
+        var plane = new THREE.Mesh( wall_2, material_pared );
+        plane.position.set(0, 15, 40);
+        plane.rotation.y = Math.PI;
+        scene.add( plane );
+
+        const wall_3 = new THREE.PlaneGeometry( 132, 30, 1000 );
+        var plane = new THREE.Mesh( wall_3, material_pared );
+        plane.position.set(-25, 15, -26);
+        plane.rotation.y = Math.PI * 0.5;
+        scene.add( plane );
+
+        const wall_4 = new THREE.PlaneGeometry( 132, 30, 1000 );
+        var plane = new THREE.Mesh( wall_4, material_pared );
+        plane.position.set(25, 15, -26);
+        plane.rotation.y = Math.PI * 1.5;
+        scene.add( plane );
+
+        const material_cubo = new THREE.MeshBasicMaterial({
+            map: loader.load('./textures/cubo.jpg')
+        });
+
         scene.add(new THREE.GridHelper(10000, 1000))
         let mesh = new THREE.Mesh(
             new THREE.BoxGeometry(10,10,10),
-            new THREE.MeshLambertMaterial({color: 0x0000ff})
+            material_cubo
         )
         mesh.position.z = -50
         scene.add(mesh)
+
+        // BUTTON
+        const buttonGeometry = new THREE.CylinderGeometry(5, 5, 1, 32);
+        const redMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+        const button = new THREE.Mesh(buttonGeometry, redMaterial);
+        button.position.y = 0;
+        scene.add(button);
+
+        // TORRE
+        const torreGeometry = new THREE.BoxGeometry(1, 2, 1);
+        const whiteMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+        const torre = new THREE.Mesh(torreGeometry, whiteMaterial);
+        torre.rotation.x = 0.5;
+        scene.add(torre);
+
+        // CUBO
+        const cubeGeometry = new THREE.BoxGeometry();
+        const greenMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+        const cube = new THREE.Mesh(cubeGeometry, greenMaterial);
+        cube.position.y = -3;
+        scene.add(cube);
+
+
+        // const orangeCurve = new THREE.EllipseCurve(
+        // 5, 5,           // ax, aY
+        // 5, 10,           // xRadius, yRadius
+        // 0,  2 * Math.PI,  // aStartAngle, aEndAngle
+        // false,            // aClockwise
+        // 0                 // aRotation
+        // );
+
+        const portal_azul = new THREE.MeshBasicMaterial({
+            map: loader.load('./textures/portal-azul.jpg')
+        });
+
+        const portal_naranja = new THREE.MeshBasicMaterial({
+            map: loader.load('./textures/portal-naranja.jpg')
+        });
+
+        //portal_azul.offset.x = 0.5; // 0.0 - 1.0
+        //portal_azul.offset.y = 0.5; // 0.0 - 1.0
+        var path = new THREE.Shape();
+        // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
+        path.absellipse(-10,10,7,10,0, Math.PI*2, false,0);
+        var geometry = new THREE.ShapeBufferGeometry( path );
+        //var material = new THREE.MeshBasicMaterial( { } );
+        var ellipse = new THREE.Mesh( geometry, portal_azul );
+        ellipse.position.set(0, 0, -90);
+        scene.add(ellipse);
+        
+
+        var path = new THREE.Shape();
+        path.absellipse(10,10,7,10,0, Math.PI*2, false,0);
+        var geometry = new THREE.ShapeBufferGeometry( path );
+        //var material = new THREE.MeshBasicMaterial( { color: 0xffa500} );
+        var ellipse = new THREE.Mesh( geometry, portal_naranja );
+        ellipse.position.set(0, 0, -90);
+        scene.add(ellipse);
 
         scene.add(new THREE.HemisphereLight(0xffffff))
         
