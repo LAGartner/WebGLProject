@@ -127,24 +127,25 @@
             map: loader.load('./textures/portal-azul.jpg')
         });
 
+        var path = new THREE.Shape();
+        // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
+        path.absellipse(0,10,7,10,0, Math.PI*2, false,0);
+        var geometry = new THREE.ShapeBufferGeometry( path );
+        var ellipse = new THREE.Mesh( geometry, portal_azul );
+        ellipse.position.set(0, 0, -90);
+        scene.add(ellipse);
+
         const portal_naranja = new THREE.MeshBasicMaterial({
             map: loader.load('./textures/portal-naranja.jpg')
         });
 
         var path = new THREE.Shape();
         // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
-        path.absellipse(-10,10,7,10,0, Math.PI*2, false,0);
-        var geometry = new THREE.ShapeBufferGeometry( path );
-        var ellipse = new THREE.Mesh( geometry, portal_azul );
-        ellipse.position.set(0, 0, -90);
-        scene.add(ellipse);
-        
-        var path = new THREE.Shape();
-        // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
-        path.absellipse(10,10,7,10,0, Math.PI*2, false,0);
+        path.absellipse(0,10,7,10,0, Math.PI*2, false,0);
         var geometry = new THREE.ShapeBufferGeometry( path );
         var ellipse = new THREE.Mesh( geometry, portal_naranja );
-        ellipse.position.set(0, 0, -90);
+        ellipse.position.set(0, 0, 39);
+        ellipse.rotation.y = Math.PI;
         scene.add(ellipse);
 
         scene.add(new THREE.HemisphereLight(0xffffff))
@@ -194,6 +195,18 @@
                 case 83:
                     zdir = 0
                     break;
+            }
+        })
+
+        document.addEventListener('keydown', (e)=>{
+            if (e.keyCode == 16) {
+                vel = 75
+            }
+        })
+
+        document.addEventListener('keyup', (e)=>{
+            if (e.keyCode == 16) {
+                vel = 50
             }
         })
 
