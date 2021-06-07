@@ -24,17 +24,37 @@
 
         /* ---------- PISO ---------- */
 
-        // Material de las paredes
-        // const material_piso = new THREE.MeshBasicMaterial({
-        //     map: loader.load('./textures/pared.jpg')
-        // });
+        // Material del piso
+        const material_piso = new THREE.MeshBasicMaterial({
+            // TODO: CAMBIAR TEXTURA PISO
+            map: loader.load('./textures/pared.jpg')
+        });
 
-        // const piso = new THREE.PlaneGeometry( 132, 30, 1000 );
-        // var plane = new THREE.Mesh( piso, material_piso );
-        // plane.position.set(-25, -15, -26);
-        // //plane.rotation.x = Math.PI * 0.5;
-        // //plane.rotation.z = Math.PI * 0.5;
-        // scene.add( plane );
+        const piso = new THREE.PlaneGeometry( 132, 50, 1000 );
+        var plane = new THREE.Mesh( piso, material_piso );
+        plane.position.set(0, 0, -26);
+        
+        plane.rotation.x = Math.PI * 0.5;
+        plane.rotation.y = Math.PI;
+        plane.rotation.z = Math.PI * 0.5;
+        scene.add( plane );
+
+        /* ---------- TECHO ---------- */
+
+        // Material del techo
+        const material_techo = new THREE.MeshBasicMaterial({
+            // TODO: CAMBIAR TEXTURA TECHO
+            map: loader.load('./textures/pared.jpg')
+        });
+
+        const techo = new THREE.PlaneGeometry( 132, 50, 1000 );
+        var plane = new THREE.Mesh( techo, material_techo );
+        plane.position.set(0, 30, -26);
+        
+        plane.rotation.x = Math.PI * 0.5;
+        plane.rotation.y = Math.PI * 2.0;
+        plane.rotation.z = Math.PI * 0.5;
+        scene.add( plane );
 
         /* ---------- PAREDES ---------- */
 
