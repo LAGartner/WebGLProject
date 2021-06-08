@@ -26,8 +26,7 @@
 
         // Material del piso
         const material_piso = new THREE.MeshBasicMaterial({
-            // TODO: CAMBIAR TEXTURA PISO
-            map: loader.load('./textures/pared.jpg')
+            map: loader.load('./textures/piso.jpg')
         });
 
         const piso = new THREE.PlaneGeometry( 132, 50, 1000 );
@@ -43,8 +42,7 @@
 
         // Material del techo
         const material_techo = new THREE.MeshBasicMaterial({
-            // TODO: CAMBIAR TEXTURA TECHO
-            map: loader.load('./textures/pared.jpg')
+            map: loader.load('./textures/espacio.jpg')
         });
 
         const techo = new THREE.PlaneGeometry( 132, 50, 1000 );
