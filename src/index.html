@@ -177,6 +177,8 @@
             xPos = camera.position.x;
             zPos = camera.position.z;
 
+            console.log(xPos + ", " + zPos);
+
             if (-27 < xPos && xPos < 27){
                 if (-88 < zPos && zPos < 43){    
                     return true;
@@ -191,6 +193,32 @@
                 camera.position.x = prevPosX;
                 camera.position.z = prevPosZ;
                 return false;
+            }
+        }
+
+        function touchesOrangePortal() {
+            var x = camera.position.x;
+            var z = camera.position.z;
+
+            if (x > -10 && x < 10){
+                if (z > 35){
+                    console.log("VAMO A AZUL");
+                    camera.position.x = 0;
+                    camera.position.z = -83;
+                }
+            }
+        }
+
+        function touchesBluePortal() {
+            var x = camera.position.x;
+            var z = camera.position.z;
+
+            if (x > -10 && x < 10){
+                if (z < -85){
+                    console.log("VAMO A AZUL");
+                    camera.position.x = 0;
+                    camera.position.z = 26;
+                }
             }
         }
 
@@ -244,7 +272,11 @@
         function animate() {
 
             requestAnimationFrame( animate );
-
+            
+            // PORTALS
+            touchesOrangePortal();
+            touchesBluePortal();
+            
             if(pControl.isLocked === true){
                 tiempoF = Date.now()
 
