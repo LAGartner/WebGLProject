@@ -153,6 +153,12 @@
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
         camera.position.y = 10
 
+        var prevPosX
+        var prevPosZ
+
+        var xPos = 0;
+        var zPos = 0;
+
         renderer = new THREE.WebGLRenderer({antialias: true});
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.setPixelRatio(window.devicePixelRatio)
@@ -164,19 +170,47 @@
             pControl.lock()
         }
 
+        function isInside() {
+            prevPosX = xPos;
+            prevPosZ = zPos;
+
+            xPos = camera.position.x;
+            zPos = camera.position.z;
+
+            if (-27 < xPos && xPos < 27){
+                if (-88 < zPos && zPos < 43){    
+                    return true;
+                }
+                else{
+                    camera.position.x = prevPosX;
+                    camera.position.z = prevPosZ;
+                    return false;
+                }
+            }
+            else{
+                camera.position.x = prevPosX;
+                camera.position.z = prevPosZ;
+                return false;
+            }
+        }
+
         document.addEventListener('keydown', (e)=>{
             switch (e.keyCode) {
                 case 65:
                     xdir = -1
+                    if(!isInside()){ xdir = 0 }
                     break;
                 case 87:
                     zdir = 1
+                    if(!isInside()){ zdir = 0 }
                     break;
                 case 68:
                     xdir = 1
+                    if(!isInside()){ xdir = 0 }
                     break;
                 case 83:
                     zdir = -1
+                    if(!isInside()){ zdir = 0 }
                     break;
             }
         })
@@ -198,17 +232,9 @@
             }
         })
 
-        document.addEventListener('keydown', (e)=>{
-            if (e.keyCode == 16) {
-                vel = 75
-            }
-        })
-
-        document.addEventListener('keyup', (e)=>{
-            if (e.keyCode == 16) {
-                vel = 50
-            }
-        })
+        // SHIFT PARA CORRER 
+        document.addEventListener('keydown', (e)=>{ if (e.keyCode == 16) { vel = 75 } })
+        document.addEventListener('keyup', (e)=>{ if (e.keyCode == 16) { vel = 50 } })
 
         tiempoI = Date.now()
         vel = 50
