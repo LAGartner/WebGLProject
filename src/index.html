@@ -7,6 +7,7 @@
 </head>
 <body>
     <button id="btnPlay">Play</button>
+    <div id="visualCoordinates"></div>
     <script type="module">
 
         import * as THREE from './three.module.js';
@@ -175,8 +176,6 @@
             xPos = camera.position.x;
             zPos = camera.position.z;
 
-            console.log(xPos + ", " + zPos);
-
             if (-27 < xPos && xPos < 27){
                 if (-88 < zPos && zPos < 43){    
                     return true;
@@ -200,7 +199,6 @@
 
             if (x > -10 && x < 10){
                 if (z > 35){
-                    console.log("VAMO A AZUL");
                     camera.position.x = 0;
                     camera.position.z = -83;
                 }
@@ -213,7 +211,6 @@
 
             if (x > -10 && x < 10){
                 if (z < -85){
-                    console.log("VAMO A AZUL");
                     camera.position.x = 0;
                     camera.position.z = 26;
                 }
@@ -288,6 +285,9 @@
 
                 tiempoI = tiempoF
             }
+
+            var coords = camera.position.x.toFixed(0) + ", " + camera.position.z.toFixed(0);
+            document.getElementById("visualCoordinates").innerText = coords;
 
             renderer.render( scene, camera );
         }
