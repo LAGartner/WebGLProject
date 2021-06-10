@@ -23,11 +23,15 @@
         scene.background = new THREE.Color(0xffffff)
         scene.fog = new THREE.Fog(0xffffff, 0, 500)
 
+        const light = new THREE.PointLight( 0xe30909, 1, 100 );
+        light.position.set( 0, 10, 0 );
+        scene.add( light );
+
         /* ---------- PISO ---------- */
 
         // Material del piso
         const material_piso = new THREE.MeshBasicMaterial({
-            map: loader.load('./textures/piso.jpg')
+            map: loader.load('./textures/suelo.jpeg')
         });
 
         const piso = new THREE.PlaneGeometry( 132, 50, 1000 );
@@ -59,7 +63,7 @@
 
         // Material de las paredes
         const material_pared = new THREE.MeshBasicMaterial({
-            map: loader.load('./textures/pared.jpg')
+            map: loader.load('./textures/pared2.jpeg')
         });
 
         const wall_1 = new THREE.PlaneGeometry( 50, 30, 1000 );
@@ -87,7 +91,7 @@
 
         /* ---------- CUBO ---------- */
         const material_cubo = new THREE.MeshBasicMaterial({
-            map: loader.load('./textures/cubo.jpg')
+            map: loader.load('./textures/cube.jpeg')
         });
 
         scene.add(new THREE.GridHelper(10000, 1000))
@@ -96,21 +100,28 @@
             material_cubo
         )
         mesh.position.z = -50
+        mesh.position.y = 5
         scene.add(mesh)
 
         // BUTTON
-        const buttonGeometry = new THREE.CylinderGeometry(5, 5, 1, 32);
-        const redMaterial = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-        const button = new THREE.Mesh(buttonGeometry, redMaterial);
+
+        const boton_rojo = new THREE.TextureLoader().load( "textures/redbutton.jpeg" );
+        boton_rojo.repeat.set(0, 0.007);
+        const b_rojo = new THREE.MeshBasicMaterial( { map: boton_rojo } );
+
+        var buttonGeometry = new THREE.CylinderGeometry(5, 5, 2, 32);
+        var button = new THREE.Mesh(buttonGeometry, b_rojo);
         button.position.y = 0;
         scene.add(button);
 
-        // TORRE
-        const torreGeometry = new THREE.BoxGeometry(1, 2, 1);
-        const whiteMaterial = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-        const torre = new THREE.Mesh(torreGeometry, whiteMaterial);
-        torre.rotation.x = 0.5;
-        scene.add(torre);
+        const boton_negro = new THREE.TextureLoader().load( "textures/grayBase.jpg" );
+        boton_negro.repeat.set(0, 0.007);
+        const b_negro = new THREE.MeshBasicMaterial( { map: boton_negro } );
+
+        buttonGeometry = new THREE.CylinderGeometry(6, 6, 0.5, 32);
+        button = new THREE.Mesh(buttonGeometry, b_negro);
+        button.position.y = 0;
+        scene.add(button);
 
         // CUBO
         const cubeGeometry = new THREE.BoxGeometry();
@@ -122,27 +133,28 @@
         /* ---------- PORTALES ---------- */
 
         // Texturas de los portales
-        const portal_azul = new THREE.MeshBasicMaterial({
-            map: loader.load('./textures/portal-azul.jpg')
-        });
+        const portal_azul = new THREE.TextureLoader().load( "textures/azul.jpg" );
+        portal_azul.repeat.set(0, 0.007);
+        const p_azul = new THREE.MeshBasicMaterial( { map: portal_azul } );
 
         var path = new THREE.Shape();
         // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
         path.absellipse(0,10,7,10,0, Math.PI*2, false,0);
         var geometry = new THREE.ShapeBufferGeometry( path );
-        var ellipse = new THREE.Mesh( geometry, portal_azul );
+        
+        var ellipse = new THREE.Mesh( geometry, p_azul );
         ellipse.position.set(0, 0, -90);
         scene.add(ellipse);
 
-        const portal_naranja = new THREE.MeshBasicMaterial({
-            map: loader.load('./textures/portal-naranja.jpg')
-        });
+        const portal_naranja = new THREE.TextureLoader().load( "textures/naranja.jpg" );
+        portal_naranja.repeat.set(0, 0.007);
+        const p_naranja = new THREE.MeshBasicMaterial( { map: portal_naranja } );
 
         var path = new THREE.Shape();
         // aX, aY, xRadius, yRadius, aStartAngle, aEndAngle, aClockwise, aRotation
         path.absellipse(0,10,7,10,0, Math.PI*2, false,0);
-        var geometry = new THREE.ShapeBufferGeometry( path );
-        var ellipse = new THREE.Mesh( geometry, portal_naranja );
+        geometry = new THREE.ShapeBufferGeometry( path );
+        var ellipse = new THREE.Mesh( geometry, p_naranja );
         ellipse.position.set(0, 0, 39);
         ellipse.rotation.y = Math.PI;
         scene.add(ellipse);
@@ -176,7 +188,7 @@
             xPos = camera.position.x;
             zPos = camera.position.z;
 
-            if (-27 < xPos && xPos < 27){
+            if (-20 < xPos && xPos < 20){
                 if (-88 < zPos && zPos < 43){    
                     return true;
                 }
