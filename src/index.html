@@ -231,12 +231,12 @@
 
         document.addEventListener('mousedown', (e)=>{
             holdingBox = true;
-            mesh.position.y += 3;
+            mesh.position.y = 8;
         });
 
         document.addEventListener('mouseup', (e)=>{
             holdingBox = false;
-            mesh.position.y -= 3;
+            mesh.position.y = 5;
         });
 
         document.addEventListener('keydown', (e)=>{
@@ -291,10 +291,6 @@
         tiempoI = Date.now()
         vel = 50
         holdingBox = true;
-
-        function boxInside() {
-
-        }
 
         function moveBox(xDis, zDis) {
             if (holdingBox) {
