@@ -39,7 +39,7 @@
             map: loader.load('./textures/suelo.jpeg')
         });
 
-        const piso = new THREE.PlaneGeometry( 132, 50, 1000 );
+        const piso = new THREE.PlaneGeometry( 132, 100, 1000 );
         var plane = new THREE.Mesh( piso, material_piso );
         plane.position.set(0, 0, -26);
         
@@ -55,7 +55,7 @@
             map: loader.load('./textures/espacio.jpg')
         });
 
-        const techo = new THREE.PlaneGeometry( 132, 50, 1000 );
+        const techo = new THREE.PlaneGeometry( 132, 100, 1000 );
         var plane = new THREE.Mesh( techo, material_techo );
         plane.position.set(0, 30, -26);
         
@@ -71,12 +71,12 @@
             map: loader.load('./textures/pared2.jpeg')
         });
 
-        const wall_1 = new THREE.PlaneGeometry( 50, 30, 1000 );
+        const wall_1 = new THREE.PlaneGeometry( 100, 30, 1000 );
         var plane = new THREE.Mesh( wall_1, material_pared );
         plane.position.set(0, 15, -91);
         scene.add( plane );
 
-        const wall_2 = new THREE.PlaneGeometry( 50, 30, 1000 );
+        const wall_2 = new THREE.PlaneGeometry( 100, 30, 1000 );
         var plane = new THREE.Mesh( wall_2, material_pared );
         plane.position.set(0, 15, 40);
         plane.rotation.y = Math.PI;
@@ -84,13 +84,13 @@
 
         const wall_3 = new THREE.PlaneGeometry( 132, 30, 1000 );
         var plane = new THREE.Mesh( wall_3, material_pared );
-        plane.position.set(-25, 15, -26);
+        plane.position.set(-50, 15, -26);
         plane.rotation.y = Math.PI * 0.5;
         scene.add( plane );
 
         const wall_4 = new THREE.PlaneGeometry( 132, 30, 1000 );
         var plane = new THREE.Mesh( wall_4, material_pared );
-        plane.position.set(25, 15, -26);
+        plane.position.set(50, 15, -26);
         plane.rotation.y = Math.PI * 1.5;
         scene.add( plane );
 
@@ -223,8 +223,8 @@
             xPos = camera.position.x;
             zPos = camera.position.z;
 
-            if (-20 < xPos && xPos < 20){
-                if (-88 < zPos && zPos < 43){    
+            if (-47 < xPos && xPos < 47){
+                if (-85 < zPos && zPos < 41){    
                     return true;
                 }
                 else{
