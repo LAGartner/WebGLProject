@@ -20,7 +20,7 @@
 
         let camera, scene, renderer, pControl
         let xdir = 0, zdir = 0
-        let tiempoI, tiempoF, vel, delta
+        let tiempoI, tiempoF, vel, delta, holdingBox
 
         var inButton = 0;
 
@@ -264,6 +264,16 @@
             }
         }
 
+        document.addEventListener('mousedown', (e)=>{
+            holdingBox = true;
+            mesh.position.y = 8;
+        });
+
+        document.addEventListener('mouseup', (e)=>{
+            holdingBox = false;
+            mesh.position.y = 5;
+        });
+
         function changeColor() {
             var x = camera.position.x;
             var z = camera.position.z;
@@ -313,18 +323,25 @@
 
         document.addEventListener('keydown', (e)=>{
             switch (e.keyCode) {
+                // A
                 case 65:
                     xdir = -1
                     if(!isInside()){ xdir = 0 }
                     break;
+
+                // W
                 case 87:
                     zdir = 1
                     if(!isInside()){ zdir = 0 }
                     break;
+
+                // D
                 case 68:
                     xdir = 1
                     if(!isInside()){ xdir = 0 }
                     break;
+
+                // S
                 case 83:
                     zdir = -1
                     if(!isInside()){ zdir = 0 }
@@ -355,6 +372,14 @@
 
         tiempoI = Date.now()
         vel = 50
+        holdingBox = true;
+
+        function moveBox(xDis, zDis) {
+            if (holdingBox) {
+                mesh.translateZ(zDis * -1);
+                mesh.translateX(xDis);
+            }
+        }
 
         animate()
 
@@ -379,6 +404,8 @@
                 pControl.moveRight(xDis)
                 pControl.moveForward(zDis)
 
+                moveBox(xDis, zDis);
+
                 tiempoI = tiempoF
             }
 
@@ -387,7 +414,6 @@
 
             renderer.render( scene, camera );
         }
-
 
     </script>
 </body>
