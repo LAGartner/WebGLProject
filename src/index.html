@@ -22,6 +22,8 @@
         let xdir = 0, zdir = 0
         let tiempoI, tiempoF, vel, delta
 
+        var inButton = 0;
+
         scene = new THREE.Scene();
         scene.background = new THREE.Color('black');
         scene.fog = new THREE.Fog(0xffffff, 0, 500)
@@ -185,6 +187,17 @@
 
         camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
         camera.position.y = 10
+        
+        const listener = new THREE.AudioListener();
+        camera.add( listener ); 
+        const sound = new THREE.Audio( listener );
+        var song = new THREE.AudioLoader();
+        song.load( 'music/portal-2-song.mp3', function( buffer ) {
+            sound.setBuffer( buffer );
+            sound.setLoop( true );
+            sound.setVolume( 0.5 );
+            sound.play();
+        });
 
         var prevPosX
         var prevPosZ
@@ -258,15 +271,42 @@
             // ROJO
             if (x > -7 && x < 7 && z > -7 && z < 7){
                 light.color.setHex( 0xFF0000 );
+                
+                if (inButton == 0){
+                    var effect = new THREE.Audio( listener )
+                    var buttoneffect = new THREE.AudioLoader();
+
+                    buttoneffect.load( 'music/portal-button.mp3', function( buffer ) {
+                        effect.setBuffer( buffer );
+                        effect.setLoop( false );
+                        effect.setVolume( 0.5 );
+                        effect.play();
+                    });
+                    inButton = 1;
+                }
             }
 
             // VERDE
             else if (x > -7 && x < 7 && z > -32 && z < -18){
                 light.color.setHex( 0x00FF00 );
+
+                if (inButton == 0){
+                    var effect = new THREE.Audio( listener )
+                    var buttoneffect = new THREE.AudioLoader();
+
+                    buttoneffect.load( 'music/portal-button.mp3', function( buffer ) {
+                        effect.setBuffer( buffer );
+                        effect.setLoop( false );
+                        effect.setVolume( 0.5 );
+                        effect.play();
+                    });
+                    inButton = 1;
+                }
             }
 
             // BLANCO
             else{
+                inButton = 0;
                 light.color.setHex( 0xffffff );
             }
         }
